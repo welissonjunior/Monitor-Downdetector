@@ -1,0 +1,30 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#202124; padding:0; font-family:Consolas,'Cascadia Mono','Segoe UI Symbol','Segoe UI Emoji',monospace; }
+.win { border-radius:8px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,.55); background:#1b1b1f; }
+.bar { height:34px; background:#2d2d33; display:flex; align-items:center; padding:0 12px; gap:7px; }
+.dot { width:11px; height:11px; border-radius:50%; }
+.dot.r{background:#ff5f56}.dot.y{background:#ffbd2e}.dot.g{background:#27c93f}
+.ttl { margin-left:10px; color:#9aa0a6; font-size:12px; font-family:'Segoe UI',Arial,sans-serif; }
+.term { padding:14px 18px 18px; font-size:13px; line-height:19px; color:#d8d8d8; white-space:pre-wrap; word-break:break-all; }
+.p  { color:#9cdcfe; }        /* prompt */
+.c  { color:#4ec9b0; }        /* comando */
+.g  { color:#6a9955; }        /* ok verde */
+.b  { color:#569cd6; }        /* azul */
+.yl { color:#dcdcaa; }        /* amarelo */
+.r  { color:#f48771; }        /* vermelho */
+.d  { color:#808080; }        /* dim */
+.w  { color:#ffffff; font-weight:600; }
+.cy { color:#4dd0e1; }
+</style></head>
+<body><div class="win" style="width:1180px">
+<div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+<span class="ttl">Windows PowerShell — deploy do repositório para o servidor</span></div>
+<div class="term"><span class="p">PS C:\PROJETOS\ZABBIX-DOWNDETECTOR-V2&gt;</span> <span class="c">$srv = "root@192.168.0.92"; $pw = "••••••"</span>
+
+<span class="p">PS C:\PROJETOS\ZABBIX-DOWNDETECTOR-V2&gt;</span> <span class="c">&amp; "C:\Program Files\PuTTY\pscp.exe" -pw $pw -batch .\downdetector_dashboard.json $srv:/etc/grafana/provisioning/dashboards/json/</span>
+downdetector_dashboard.json     | 128 kB | 100%
+<span class="p">PS C:\PROJETOS\ZABBIX-DOWNDETECTOR-V2&gt;</span> <span class="c">&amp; "C:\Program Files\PuTTY\pscp.exe" -pw $pw -batch .\downdetector_dashboard_tv.json $srv:/etc/grafana/provisioning/dashboards/json/</span>
+downdetector_dashboard_tv.json  |  96 kB | 100%
+<span class="p">PS C:\PROJETOS\ZABBIX-DOWNDETECTOR-V2&gt;</span> <span class="c">&amp; "C:\Program Files\PuTTY\plink.exe" -ssh $srv -pw $pw -batch "curl -s -X POST -u admin:***** http://127.0.0.1:3000/api/admin/provisioning/dashboards/reload &amp;&amp; systemctl restart grafana-server"</span>
+<span class="g">{}</span></div></div></body></html>

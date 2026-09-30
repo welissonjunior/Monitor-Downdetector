@@ -1,0 +1,22 @@
+# ═══════════════════════════════════════════════════════════════
+# Configuração do Grafana Kiosk — Downdetector NOC TV
+# ═══════════════════════════════════════════════════════════════
+
+general:
+  kiosk-mode: full
+  autofit: true
+  scale-factor: "1.0"
+  window-position: "0,0"
+  window-size: "1920,1080"
+  page-load-delay-ms: 3000
+
+target:
+  login-method: anon
+  # Wallboard de detecção (downdetector-tv-1). Visão completa (User):
+  # troque o UID para downdetector-noc-1 (ou use KIOSK_DASHBOARD_UID no run_kiosk.sh).
+  URL: "http://127.0.0.1:3000/d/downdetector-tv-1?kiosk&_dash.hideTimePicker=true"
+  playlist: false
+  ignore-certificate-errors: false
+
+goauth:
+  auto-login: false

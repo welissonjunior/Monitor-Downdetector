@@ -1,0 +1,14 @@
+[Unit]
+Description=Downdetector Monitor Collector
+After=network.target zabbix-server.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/downdetector-zabbix/run_collector.sh
+User=root
+Group=root
+StandardOutput=append:/opt/downdetector-zabbix/logs/collector.log
+StandardError=append:/opt/downdetector-zabbix/logs/collector.log
+
+[Install]
+WantedBy=multi-user.target

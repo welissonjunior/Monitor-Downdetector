@@ -1,0 +1,120 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+  - name: Templates/Applications
+    uuid: 7cb58d81352a43cb96072db69eb92323
+  templates:
+  - template: Downdetector Monitor
+    name: Downdetector Monitor
+    description: 'Monitoramento de indisponibilidade de serviços via Downdetector.
+
+      Usa o Zabbix Sender via script externo em Python.
+
+
+      Autor: Welisson Junior
+
+      Versão: 1.0
+
+      '
+    groups:
+    - name: Templates/Applications
+    discovery_rules:
+    - name: 'Downdetector: Descoberta de Serviços'
+      type: TRAP
+      key: downdetector.discovery
+      lifetime: 30d
+      description: Descoberta automática dos serviços monitorados no Downdetector
+        via LLD
+      item_prototypes:
+      - name: 'Downdetector: {#SERVICE_NAME} - Status'
+        type: TRAP
+        key: downdetector.status[{#SERVICE_SLUG}]
+        value_type: FLOAT
+        description: 'Status extraído do Downdetector.
+
+          0 = Sem problemas
+
+          1 = Possíveis problemas
+
+          2 = Problemas confirmados
+
+          -1 = Desconhecido (Erro na coleta)
+
+          '
+        valuemap:
+          name: Downdetector Status
+        tags:
+        - tag: service
+          value: '{#SERVICE_NAME}'
+        trigger_prototypes:
+        - expression: last(/Downdetector Monitor/downdetector.status[{#SERVICE_SLUG}])=1
+          name: 'Downdetector: {#SERVICE_NAME} - Possíveis problemas reportados'
+          priority: WARNING
+          description: O Downdetector indica que há relatos crescentes de problemas
+            ou instabilidade no serviço {#SERVICE_NAME}.
+          tags:
+          - tag: scope
+            value: availability
+          uuid: 25025035ec3f46af83a2aa105a9c8ccf
+        - expression: last(/Downdetector Monitor/downdetector.status[{#SERVICE_SLUG}])=2
+          name: 'Downdetector: {#SERVICE_NAME} - Problemas confirmados!'
+          priority: HIGH
+          description: O Downdetector confirmou uma interrupção ou problemas críticos
+            no serviço {#SERVICE_NAME}.
+          tags:
+          - tag: scope
+            value: availability
+          uuid: e375c91d9fd749ac89d5b92f32539817
+        - expression: last(/Downdetector Monitor/downdetector.status[{#SERVICE_SLUG}])=-1
+            and nodata(/Downdetector Monitor/downdetector.status[{#SERVICE_SLUG}],15m)=0
+          name: 'Downdetector: {#SERVICE_NAME} - Falha na coleta'
+          priority: INFO
+          description: O script encontrou um erro ao tentar consultar o status de
+            {#SERVICE_NAME}.
+          tags:
+          - tag: scope
+            value: notice
+          uuid: a930df86413c41dcada40349ad887a73
+        uuid: 728b835a02364ea3aad0a57d37fb3b8c
+      - name: 'Downdetector: {#SERVICE_NAME} - Status Texto'
+        type: TRAP
+        key: downdetector.status.text[{#SERVICE_SLUG}]
+        value_type: TEXT
+        description: Mensagem de status em texto
+        tags:
+        - tag: service
+          value: '{#SERVICE_NAME}'
+        uuid: 61f737b98dd74b10b59ae0ff01ebf702
+      uuid: 6de6881e45e4429492729569ba57a396
+    items:
+    - name: 'Downdetector: Collector heartbeat'
+      type: TRAP
+      key: downdetector.collector.heartbeat
+      value_type: UNSIGNED
+      description: Timestamp do último ciclo de coleta. Usado para monitorar se o
+        coletor está rodando.
+      tags:
+      - tag: component
+        value: downdetector
+      triggers:
+      - expression: nodata(/Downdetector Monitor/downdetector.collector.heartbeat,15m)=1
+        name: 'Downdetector: Coletor sem dados há 15 minutos'
+        priority: WARNING
+        tags:
+        - tag: scope
+          value: availability
+        uuid: d93bd59200bb418991a1bb93f17cf159
+      uuid: 692195719a1b49c9bc31b27f587916a7
+    valuemaps:
+    - name: Downdetector Status
+      mappings:
+      - value: '0'
+        newvalue: Sem problemas
+      - value: '1'
+        newvalue: Possíveis problemas
+      - value: '2'
+        newvalue: Problemas confirmados
+      - value: '-1'
+        newvalue: Desconhecido
+      uuid: 51afcbf7a5cd40158b29b3638c6c1752
+    uuid: e81fb35fcf2646acbcc5af0c18198aed

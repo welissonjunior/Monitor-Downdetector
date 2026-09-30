@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Downdetector Monitor · Manual de Instalação</title>
+<style>
+  :root {
+    --teal: #00AE9D;
+    --dark: #003641;
+    --soft: #e8f7f5;
+    --ink: #1f2d2b;
+    --muted: #5b6b69;
+    --warn-bg: #fff8e6;
+    --warn-bd: #f0c95c;
+    --ok: #2e9e5b;
+  }
+  * { box-sizing: border-box; }
+  @page { size: A4; margin: 0; }
+  html, body { margin: 0; padding: 0; line-height: 0; }
+  body {
+    font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
+    color: var(--ink);
+    font-size: 12.5px;
+  }
+  .page { page-break-after: always; padding: 0; line-height: 1.55; }
+  .page:last-child { page-break-after: auto; }
+
+  /* ---------- Capa ---------- */
+  .cover {
+    background: var(--dark);
+    color: #fff;
+    height: 1120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 18mm;
+    position: relative;
+  }
+  .cover .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 20px; font-weight: 700; letter-spacing: .5px;
+  }
+  .cover .brand img.jr { margin-left: auto; height: 66px; }
+  .sig { display: flex; align-items: center; gap: 10px; margin-top: 18px; border-top: 1px solid #dce6e4; padding-top: 10px; }
+  .sig img { height: 24px; }
+  .cover .brand .logo {
+    background: var(--teal); color: #fff; font-weight: 800;
+    border-radius: 10px; width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center; font-size: 19px;
+  }
+  .cover h1 { font-size: 40px; line-height: 1.15; margin: 60px 0 14px; font-weight: 800; }
+  .cover h1 span { color: var(--teal); }
+  .cover .sub { font-size: 16px; color: #bcd8d4; max-width: 150mm; }
+  .cover .meta {
+    margin-top: 70px; font-size: 12px; color: #9dbcb7;
+    border-top: 1px solid rgba(255,255,255,.15); padding-top: 16px;
+    display: flex; justify-content: space-between;
+  }
+  .cover .chips { margin-top: 40px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .cover .chip {
+    background: rgba(0,174,157,.18); color: #9fe8e0;
+    border: 1px solid rgba(0,174,157,.45);
+    padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  }
+
+  /* ---------- Sumário ---------- */
+  h2.sec {
+    font-size: 21px; color: var(--dark); margin: 0 0 4px;
+    padding-bottom: 8px; border-bottom: 3px solid var(--teal);
+  }
+  .sec-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--teal); color: #fff; width: 30px; height: 30px;
+    border-radius: 8px; font-size: 15px; font-weight: 800; margin-right: 10px;
+  }
+  .lead { color: var(--muted); margin: 10px 0 18px; font-size: 13px; }
+  .content { padding: 10mm 14mm; }
+  .toc { list-style: none; padding: 0; margin: 18px 0 0; }
+  .toc li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 6px; border-bottom: 1px dashed #d7e2e0; font-size: 14px;
+  }
+  .toc li b { color: var(--teal); min-width: 26px; }
+  .toc li small { color: var(--muted); margin-left: auto; font-size: 11px; }
+
+  /* ---------- Passos ---------- */
+  ol.steps { counter-reset: st; list-style: none; padding: 0; margin: 12px 0 6px; }
+  ol.steps li {
+    counter-increment: st; position: relative;
+    padding: 0 0 12px 42px; break-inside: avoid;
+  }
+  ol.steps li::before {
+    content: counter(st);
+    position: absolute; left: 0; top: 0;
+    background: var(--teal); color: #fff;
+    width: 26px; height: 26px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px;
+  }
+  ol.steps b.st-t { display: block; font-size: 13px; margin-bottom: 1px; }
+  ol.steps p { margin: 0; color: var(--muted); }
+
+  /* ---------- Figuras ---------- */
+  figure {
+    margin: 12px 0 4px; break-inside: avoid;
+    border: 1px solid #dce6e4; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,54,65,.06);
+  }
+  figure img { width: 100%; display: block; }
+  figcaption {
+    background: #f2f7f6; color: var(--muted);
+    font-size: 10.5px; padding: 6px 12px;
+    border-top: 1px solid #dce6e4;
+  }
+  figcaption b { color: var(--dark); }
+
+  /* ---------- Callouts ---------- */
+  .box {
+    border-radius: 10px; padding: 11px 14px; margin: 12px 0;
+    font-size: 12px; break-inside: avoid;
+  }
+  .box b:first-child { display: block; margin-bottom: 3px; }
+  .box.dica { background: var(--soft); border: 1px solid #9adcd4; color: #0c544c; }
+  .box.atencao { background: var(--warn-bg); border: 1px solid var(--warn-bd); color: #7a5b0a; }
+  .box.ok { background: #eaf7ef; border: 1px solid #a9dcbc; color: #1e5c38; }
+
+  /* ---------- Tabela ---------- */
+  table.ref { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 11.5px; }
+  table.ref th {
+    background: var(--dark); color: #fff; text-align: left;
+    padding: 8px 10px; font-size: 11px;
+  }
+  table.ref td { border: 1px solid #dce6e4; padding: 7px 10px; vertical-align: top; }
+  table.ref tr:nth-child(even) td { background: #f7fbfa; }
+  .pill {
+    display: inline-block; padding: 2px 10px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 700; white-space: nowrap;
+  }
+  .pill.ok2 { background: #e3f4ea; color: #1e7a43; border: 1px solid #a9dcbc; }
+  .pill.inst { background: #fdf3e0; color: #9a6b0f; border: 1px solid #eecf8f; }
+  .pill.crit { background: #fdeae6; color: #a03a23; border: 1px solid #f2b7a8; }
+  .pill.semd { background: #f0f2f2; color: #5b6b69; border: 1px solid #cfd8d6; }
+
+  .cols2 { display: flex; gap: 14px; }
+  .cols2 > div { flex: 1; }
+  .keep { break-inside: avoid; }
+  .fig-sm { max-width: 76%; margin-left: auto; margin-right: auto; }
+  .fig-xs { max-width: 63%; margin-left: auto; margin-right: auto; }
+  .tight ol.steps li { padding-bottom: 8px; }
+
+  /* ---------- Bloco de comando ---------- */
+  .cmd {
+    background: #10151a; color: #d8e2e8; border-radius: 10px;
+    padding: 12px 14px; margin: 10px 0; font-family: Consolas, 'Cascadia Mono', monospace;
+    font-size: 11px; line-height: 1.6; overflow-wrap: anywhere;
+    white-space: pre-wrap; break-inside: avoid;
+  }
+  .cmd .c { color: #7dd3c8; }
+  .cmd .d { color: #6b7a88; }
+  h3.sub { color: var(--dark); font-size: 14px; margin: 10px 0 2px; }
+</style>
+</head>
+<body>
+
+<!-- ============ CAPA ============ -->
+<div class="page cover">
+  <div class="brand"><div class="logo">DD</div> Downdetector Monitor <span style="color:#9dbcb7;font-size:13px;font-weight:400">· NOC Zabbix + Grafana</span><img class="jr" src="img/logo-jr.png" alt="JR.TEC.BR"></div>
+  <h1>Manual de<br><span>Instalação</span></h1>
+  <div class="sub">Passo a passo para instalar o monitor no servidor: coletor Downdetector → Zabbix (trapper + LLD) → Grafana NOC na TV — com o instalador turnkey <b>install.sh</b>, verificação automática e todos os prints do processo real.</div>
+  <div class="chips">
+    <span class="chip">Instalador turnkey</span>
+    <span class="chip">42 serviços</span>
+    <span class="chip">2 dashboards NOC</span>
+    <span class="chip">Coleta a cada 5 min</span>
+    <span class="chip">Kiosk TV 40"</span>
+  </div>
+  <div class="meta">
+    <span>Downdetector Monitor — Zabbix + Grafana</span>
+    <span>Versão 1.0 · Setembro/2026</span>
+  </div>
+</div>
+
+<!-- ============ 1. SOBRE + SUMÁRIO ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">1</span> Sobre este manual</h2>
+    <p class="lead">Este guia é para quem instala o <b>Downdetector Monitor</b> em um servidor Linux. Ele mostra, com imagens reais do processo (telas do Grafana/Zabbix e o terminal da instalação validada), <b>como sair do zero ao painel funcionando na TV</b> usando o instalador turnkey — que configura, provisiona, semeia os dados e verifica tudo sozinho.</p>
+
+    <h2 class="sec" style="margin-top:26px"><span class="sec-num">2</span> Sumário</h2>
+    <ul class="toc">
+      <li><b>3</b> Como o sistema funciona <small>Os 4 elos do pipeline</small></li>
+      <li><b>4</b> Pré-requisitos <small>Servidor, serviços e credenciais</small></li>
+      <li><b>5</b> O que o instalador faz <small>As 13 etapas</small></li>
+      <li><b>6</b> Instalação passo a passo <small>Copiar, rodar, acompanhar</small></li>
+      <li><b>7</b> Verificação pós-instalação <small>Grafana, dashboards e Zabbix</small></li>
+      <li><b>8</b> TV / Kiosk <small>Tela cheia na TV 40"</small></li>
+      <li><b>9</b> Instalação sem perguntas <small>Anexo: UNATTENDED</small></li>
+      <li><b>10</b> Atualizar depois (deploy) <small>Anexo: Windows → servidor</small></li>
+      <li><b>11</b> Operação do dia a dia <small>Comandos úteis</small></li>
+      <li><b>12</b> Solução de problemas <small>FAQ</small></li>
+      <li><b>13</b> Referência rápida <small>Tabela de consulta</small></li>
+    </ul>
+
+    <div class="box dica keep" style="margin-top:26px">
+      <b>💡 Antes de começar</b>
+      O instalador <b>não instala</b> Zabbix nem Grafana — eles devem estar <b>instalados e rodando</b> no servidor (premissa: o script cuida só do Downdetector). Você vai precisar de acesso <b>root/sudo</b>, das credenciais da API do Zabbix e do admin do Grafana.
+    </div>
+  </div>
+</div>
+
+<!-- ============ 3. COMO FUNCIONA ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">3</span> Como o sistema funciona</h2>
+    <p class="lead">O monitor <b>não mede a rede</b> — ele mede o que o <b>Downdetector BR</b> reporta publicamente sobre cada serviço. O pipeline tem 4 elos:</p>
+
+    <ol class="steps">
+      <li><b class="st-t">Coletor Python</b>
+        <p>Abre a homepage do Downdetector BR num Chromium real (Xvfb + patchright, que passa no Cloudflare) e extrai o status dos <b>42 serviços</b>.</p>
+      </li>
+      <li><b class="st-t">zabbix_sender → Zabbix</b>
+        <p>Envia o status de cada serviço para o host <b>Downdetector</b> (85 itens criados por LLD) a cada <b>5 minutos</b>, via cron.</p>
+      </li>
+      <li><b class="st-t">Grafana</b>
+        <p>Dois dashboards NOC leem o Zabbix: o <b>Wallboard</b> para a TV e o <b>User</b> para acompanhar no navegador.</p>
+      </li>
+      <li><b class="st-t">Verificação automática</b>
+        <p>O heartbeat detecta coleta parada há mais de 15 min; a instalação só termina depois de <b>10 checks</b> verdes.</p>
+      </li>
+    </ol>
+
+    <table class="ref">
+      <tr><th style="width:30%">Status enviado</th><th>O que significa no dashboard</th></tr>
+      <tr><td><span class="pill ok2">0 — OK</span></td><td>Sem problemas reportados no Downdetector.</td></tr>
+      <tr><td><span class="pill inst">1 — Instável</span></td><td>Serviço aparece no Top Reclamações. Amarelo há menos de 1 h; <b>vermelho a partir de 1 h</b>.</td></tr>
+      <tr><td><span class="pill crit">2 — Crítico</span></td><td>Um problema severo — laranja quando recente.</td></tr>
+      <tr><td><span class="pill semd">-1 — Sem dados</span></td><td>A coleta falhou para aquele serviço. <b>Nunca</b> é tratado como OK (anti falso-verde).</td></tr>
+    </table>
+
+    <div class="box ok keep">
+      <b>✅ Ordenação inteligente</b>
+      O painel sempre mostra o <b>Sicoob primeiro</b>, depois os problemas mais antigos — a TV responde à pergunta “tem algo errado agora?” num piscar de olhos.
+    </div>
+  </div>
+</div>
+
+<!-- ============ 4. PRÉ-REQUISITOS ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">4</span> Pré-requisitos</h2>
+    <p class="lead">Zabbix Server e Grafana <b>rodando</b>, acesso root e internet. O resto (Python, Chromium, plugins, ícones) o instalador resolve.</p>
+
+    <table class="ref">
+      <tr><th style="width:30%">Item</th><th>Recomendado</th></tr>
+      <tr><td><b>CPU / RAM</b></td><td>2 vCPU (4 ideal — o Chromium do coletor é pesado) · 4 GB RAM (8 ideal).</td></tr>
+      <tr><td><b>Disco</b></td><td>10 GB livres.</td></tr>
+      <tr><td><b>Sistema</b></td><td>Debian 11/12/13, Ubuntu 22.04/24.04 ou família RHEL 8/9.</td></tr>
+      <tr><td><b>Rede</b></td><td>Internet (apt, PyPI, Chromium) e portas locais <b>80</b> (Zabbix UI), <b>3000</b> (Grafana), <b>10051</b> (trapper).</td></tr>
+      <tr><td><b>Credenciais</b></td><td>Usuário da API do Zabbix (Admin) e admin do Grafana.</td></tr>
+    </table>
+
+    <ol class="steps tight">
+      <li><b class="st-t">Confirme que os serviços estão ativos</b>
+        <p><span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">systemctl is-active grafana-server zabbix-server</span> — a resposta esperada é <b>active</b> duas vezes.</p>
+      </li>
+      <li><b class="st-t">Anote as credenciais</b>
+        <p>URL da API do Zabbix (<span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">http://127.0.0.1/zabbix</span>), usuário/senha da API e o admin do Grafana com a senha <b>já trocada</b> do padrão.</p>
+      </li>
+    </ol>
+
+    <figure>
+      <img src="img/te_01_preflight.png" alt="Verificação de pré-requisitos">
+      <figcaption><b>Terminal 1</b> — Verificação real na VM de referência: serviços ativos, Grafana 13.2.3, Zabbix 7.4.15, Python 3.13.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- ============ 5. O QUE O INSTALADOR FAZ ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">5</span> O que o instalador faz</h2>
+    <p class="lead">O <span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">install.sh</span> executa <b>13 etapas</b> — e só termina após verificar tudo (exit 1 se algo falhar). Tudo vai para <span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">/opt/downdetector-zabbix/logs/install.log</span>.</p>
+
+    <table class="ref">
+      <tr><th style="width:6%">#</th><th style="width:34%">Etapa</th><th>O que acontece</th></tr>
+      <tr><td><b>1</b></td><td><b>Dependências</b></td><td>Instala python3-venv, zabbix-sender, xvfb e bibliotecas do Chromium (apt/dnf).</td></tr>
+      <tr><td><b>2</b></td><td><b>Configuração</b></td><td>Pergunta diretório, valida login no Zabbix e no Grafana (3 tentativas), perguntas de cron/kiosk.</td></tr>
+      <tr><td><b>3</b></td><td><b>Estrutura</b></td><td>Cria <b>/opt/downdetector-zabbix</b> com logs/, state/ e screenshots/.</td></tr>
+      <tr><td><b>4</b></td><td><b>Cópia</b></td><td>Copia coletor, template, config e logos (e normaliza finais de linha CRLF→LF).</td></tr>
+      <tr><td><b>5</b></td><td><b>Python</b></td><td>Cria venv, instala dependências e o Chromium (Playwright/patchright).</td></tr>
+      <tr><td><b>6</b></td><td><b>Wrapper</b></td><td>Gera o run_collector.sh (venv + xvfb-run) usado pelo cron.</td></tr>
+      <tr><td><b>7</b></td><td><b>Plugins Grafana</b></td><td>Garante gapit-htmlgraphics-panel e alexanderzobnin-zabbix-app (com <b>--homepath</b> — no Grafana 13 o CLI falha sem ele).</td></tr>
+      <tr><td><b>8</b></td><td><b>Provisionamento</b></td><td>Datasource Zabbix (cacheTTL 5m), os <b>2 dashboards</b>, 51 ícones e o drop-in de HTML do painel.</td></tr>
+      <tr><td><b>9</b></td><td><b>Zabbix</b></td><td>Importa o template “Downdetector Monitor” (LLD) e cria o host <b>Downdetector</b>.</td></tr>
+      <tr><td><b>10</b></td><td><b>Cron</b></td><td>Agenda a coleta a cada 5 min (/etc/cron.d/downdetector-zabbix).</td></tr>
+      <tr><td><b>11</b></td><td><b>Kiosk</b> <span class="pill semd">opcional</span></td><td>Baixa grafana-kiosk, cria autostart e libera acesso anônimo para a TV.</td></tr>
+      <tr><td><b>12</b></td><td><b>Reinicia o Grafana</b></td><td>Reinicia uma única vez (plugins/drop-ins/provisioning), esperando o serviço voltar.</td></tr>
+      <tr><td><b>13</b></td><td><b>Verificação</b></td><td>10 checks (Zabbix, Grafana, dashboards, ícones, venv, cron) — pendências <b>acumulam</b> e o código final é 1.</td></tr>
+</table>
+
+    <div class="box dica keep">
+      <b>💡 Reexecutar é seguro</b>
+      Todas as etapas são idempotentes: rodar o instalador de novo reaproveita o que já existe e refaz o que falta. Em caso de falha, corrija a causa e rode de novo.
+    </div>
+  </div>
+</div>
+
+<!-- ============ 6. INSTALAÇÃO — COPIAR + PERGUNTAS ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">6</span> Instalação passo a passo</h2>
+    <p class="lead">Do repositório no Windows até o painel no ar — são 3 movimentos: <b>copiar</b> o projeto, <b>responder</b> o instalador e <b>acompanhar</b> as etapas.</p>
+
+    <h3 class="sub">6.1 Obter o projeto no servidor</h3>
+    <ol class="steps tight">
+      <li><b class="st-t">Opção A — clonando o repositório (recomendada)</b>
+        <p>No próprio servidor: <span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">git clone https://github.com/welissonjunior/ZABBIX-DOWNDETECTOR-V02.git /root/dd-src</span> — o <span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">.gitattributes</span> do repo garante finais de linha LF (nada quebra no Linux). Para atualizar depois: <b>git pull</b> e rode o instalador de novo.</p>
+      </li>
+      <li><b class="st-t">Opção B — copiar do Windows (sem git no servidor)</b>
+        <p>O instalador usa como fonte a pasta onde ele está — no exemplo, <b>/root/dd-src</b>.</p>
+      </li>
+    </ol>
+    <div class="cmd"><span class="c">PS&gt;</span> $pw = <span class="c">"SUA_SENHA_SSH"</span>; $srv = <span class="c">"root@IP_DO_SERVIDOR"</span>
+<span class="c">PS&gt;</span> &amp; <span class="c">"C:\Program Files\PuTTY\plink.exe"</span> -ssh $srv -pw $pw -batch <span class="c">"mkdir -p /root/dd-src"</span>
+<span class="c">PS&gt;</span> &amp; <span class="c">"C:\Program Files\PuTTY\pscp.exe"</span> -pw $pw -batch -r *.py *.json *.yaml *.sh *.txt *.service logos <span class="c">$srv:/root/dd-src/</span></div>
+
+    <h3 class="sub">6.2 As perguntas do instalador</h3>
+    <p class="lead" style="margin:6px 0 4px"><span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">sudo ./install.sh</span> pergunta — <b>ENTER aceita o padrão</b>; senhas não aparecem ao digitar:</p>
+
+    <table class="ref">
+      <tr><th style="width:46%">Pergunta</th><th>Resposta do exemplo</th></tr>
+      <tr><td>Diretório de instalação</td><td>ENTER → <b>/opt/downdetector-zabbix</b></td></tr>
+      <tr><td>Zabbix URL · Zabbix usuário</td><td>ENTER → <b>http://127.0.0.1/zabbix</b> · <b>Admin</b></td></tr>
+      <tr><td>Zabbix senha</td><td>senha da API do Zabbix</td></tr>
+      <tr><td>Grafana URL · Grafana usuário</td><td>ENTER → <b>http://127.0.0.1:3000</b> · <b>admin</b></td></tr>
+      <tr><td>Grafana senha</td><td>senha admin do Grafana</td></tr>
+      <tr><td>Agendar coleta automática (cron)? <b>[S/n]</b></td><td><b>S</b></td></tr>
+      <tr><td>Configurar como TV (kiosk)? <b>[s/N]</b></td><td><b>n</b> agora — configure depois (seção 8)</td></tr>
+    </table>
+
+    <div class="box atencao keep">
+      <b>⚠️ Senha errada não passa</b>
+      O instalador valida o login no Zabbix e no Grafana antes de prosseguir (3 tentativas). Se o Grafana ainda usa a senha padrão <b>admin/admin</b>, ele força a troca no primeiro login — troque antes e use a senha nova aqui.
+    </div>
+  </div>
+</div>
+
+<!-- ============ 6.3 RODAR ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">7</span> Rodando o instalador</h2>
+    <p class="lead">No servidor, dentro da pasta do projeto, execute e responda. O banner confirma o início:</p>
+
+    <div class="cmd"><span class="c">root@debian:~#</span> <span class="c">cd /root/dd-src</span>    <span class="d"># pasta onde você copiou o projeto</span>
+<span class="c">root@debian:~#</span> <span class="c">sudo ./install.sh</span></div>
+
+    <figure>
+      <img src="img/te_02_inicio.png" alt="Início da instalação">
+      <figcaption><b>Terminal 2</b> — Detalhes: o instalador completa as dependências, valida logins e semeia os dados.</figcaption>
+    </figure>
+
+    <div class="box dica keep">
+      <b>💡 Modo sem perguntas</b>
+      Em SSH sem terminal interativo (ou com UNATTENDED=1) o instalador usa os valores padrão + variáveis de ambiente — veja o anexo da seção 9. É exatamente o fluxo usado para validar este manual.
+    </div>
+  </div>
+</div>
+
+<!-- ============ 7. ETAPAS AUTOMATICAS ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">8</span> As etapas automáticas</h2>
+    <p class="lead">Depois das perguntas, as etapas 3 a 12 rodam sozinhas — estrutura, Python/Chromium, plugins, provisioning, Zabbix, cron e semeadura:</p>
+
+    <figure style="max-width:82%">
+      <img src="img/te_03_estrutura.png" alt="Etapas 3 a 6">
+      <figcaption><b>Terminal 3</b> — Etapas 3–6: arquivos copiados, ambiente Python + Chromium pronto, wrapper criado e plugins presentes.</figcaption>
+    </figure>
+
+    <figure style="max-width:82%">
+      <img src="img/te_04_provisioning.png" alt="Etapas 7 a 9">
+      <figcaption><b>Terminal 4</b> — Etapas 7–9: datasource e dashboards provisionados, 51 ícones instalados, template e host criados no Zabbix, cron agendado.</figcaption>
+    </figure>
+
+    <div class="box dica keep">
+      <b>💡 Mensagens “ℹ sem permissão via API” são normais</b>
+      O provisioning <b>por arquivo</b> recarrega sozinho quando o Grafana reinicia (etapa 12). Só se o painel aparecer vazio é preciso habilitar o plugin manualmente (seção 12).
+    </div>
+  </div>
+</div>
+
+<!-- ============ 9. VERIFICACAO FINAL ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">9</span> Verificação final e resumo</h2>
+    <p class="lead">A etapa 13 roda <b>10 checks</b>; com tudo verde o instalador mostra o resumo com as URLs dos dashboards:</p>
+
+    <figure style="max-width:86%">
+      <img src="img/te_05_final.png" alt="Verificação final">
+      <figcaption><b>Terminal 5</b> — Fim real da instalação validada: 13/13 etapas, 10/10 checks ✅ e o resumo com URLs, comandos e logs.</figcaption>
+    </figure>
+
+    <figure style="max-width:92%">
+      <img src="img/te_06_coletor.png" alt="Coletor em operação">
+      <figcaption><b>Terminal 6</b> — Minutos depois, o cron assume: <b>processed: 85; failed: 0</b> (42 status + 42 textos + heartbeat) a cada 5 min.</figcaption>
+    </figure>
+
+    <div class="box ok keep">
+      <b>✅ Guarde as duas URLs do resumo</b>
+      Wallboard: <b>/d/downdetector-tv-1?kiosk</b> · User: <b>/d/downdetector-noc-1</b>. Em caso de falha, o instalador sai com código 1 e aponta o log completo.
+    </div>
+  </div>
+</div>
+
+<!-- ============ 10. VERIFICACAO POS (GRAFANA) ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">10</span> Verificação pós-instalação — Grafana</h2>
+    <p class="lead">Abra <b>http://IP_DO_SERVIDOR:3000</b>, entre como admin e confira os dois dashboards:</p>
+
+    <figure class="fig-sm">
+      <img src="img/02_grafana_login.png" alt="Login do Grafana">
+      <figcaption><b>Tela 1</b> — Login do Grafana na VM de referência.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="img/03_wallboard_tv.png" alt="Wallboard da TV">
+      <figcaption><b>Tela 2</b> — <b>Downdetector NOC - Wallboard</b> (/d/downdetector-tv-1?kiosk): veredito no topo (3 problemas: gov.br, Santander e TIM) e os 42 serviços em chips por categoria.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- ============ 11. USER DASHBOARD ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">11</span> Dashboard User</h2>
+    <p class="lead">O <b>Downdetector NOC - User</b> (<span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">/d/downdetector-noc-1?kiosk</span>) mostra os <b>42 cards</b> com sparkline de 6 h, organizados por categoria, e os KPIs no topo:</p>
+
+    <figure>
+      <img src="img/04_dashboard_user.png" alt="Dashboard User em kiosk">
+      <figcaption><b>Tela 3</b> — Dashboard User em kiosk 1920×1080: KPIs (0 ≥ 1h · 4 instáveis · 37 OK · 42 total), 6 categorias, problema destacado com idade (“Instável · há 10m”).</figcaption>
+    </figure>
+
+    <table class="ref">
+      <tr><th style="width:34%">No painel…</th><th>Significado</th></tr>
+      <tr><td><span class="pill ok2">OK</span></td><td>Sem problemas reportados.</td></tr>
+      <tr><td><span class="pill inst">Instável · há Xm</span></td><td>No Top Reclamações há X minutos — amarelo até 1 h, <b>vermelho depois</b>.</td></tr>
+      <tr><td><span class="pill crit">Crítico</span></td><td>Severidade 2 (laranja quando recente).</td></tr>
+      <tr><td><span class="pill semd">Sem dados</span></td><td>Coleta falhou para o serviço (o card fica esmaecido).</td></tr>
+    </table>
+
+    <div class="box atencao keep">
+      <b>⚠️ Não troque o intervalo de tempo</b>
+      O painel usa <b>now-6h</b> — o cálculo de “desde quando” e o veredito dependem disso.
+    </div>
+  </div>
+</div>
+
+<!-- ============ 12. ZABBIX ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">12</span> Verificação pós-instalação — Zabbix</h2>
+    <p class="lead">No frontend do Zabbix (<b>http://IP_DO_SERVIDOR/zabbix</b>), o host <b>Downdetector</b> deve aparecer ativo, com 85 itens e dados chegando a cada 5 min:</p>
+
+    <figure style="max-width:82%">
+      <img src="img/05_zabbix_hosts.png" alt="Host Downdetector">
+      <figcaption><b>Tela 4</b> — Monitoramento → Hosts com filtro Nome = Downdetector: host <b>ativo</b> (127.0.0.1:10050), 85 itens e incidentes em andamento.</figcaption>
+    </figure>
+
+    <figure style="max-width:82%">
+      <img src="img/06_zabbix_dados_recentes.png" alt="Dados recentes">
+      <figcaption><b>Tela 5</b> — Monitoramento → Dados recentes (host Downdetector): “Status” = Sem problemas (0) e “Status Text” com a descrição publicada no Downdetector.</figcaption>
+    </figure>
+
+    <div class="box dica keep">
+      <b>💡 Serviço novo não aparece no dashboard?</b>
+      O plugin do Grafana cacheia os nomes de métricas — o provisionamento já usa <b>cacheTTL 5m</b>. Espere ~5 min ou reinicie: <span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">systemctl restart grafana-server</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 13. TV / KIOSK ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">13</span> TV / Kiosk</h2>
+    <p class="lead">Se respondeu <b>n</b> na pergunta do kiosk, configure depois — rode o instalador de novo e responda <b>S</b>, ou siga a mão:</p>
+
+    <ol class="steps">
+      <li><b class="st-t">Teste imediato na máquina ligada à TV</b>
+        <p><span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">sudo /opt/downdetector-zabbix/run_kiosk.sh</span> — abre o <b>Wallboard</b> em tela cheia.</p>
+      </li>
+      <li><b class="st-t">Autostart no boot</b>
+        <p>Ao aceitar o kiosk, o instalador cria <b>/etc/xdg/autostart/downdetector-kiosk.desktop</b> e baixa o grafana-kiosk para /usr/local/bin — a TV abre sozinha ao ligar.</p>
+      </li>
+      <li><b class="st-t">TV sem login</b>
+        <p>O instalador habilita acesso anônimo Viewer no Grafana (drop-in GF_AUTH_ANONYMOUS_*). Verifique com <span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">systemctl cat grafana-server | grep ANONYMOUS</span></p>
+      </li>
+      <li><b class="st-t">Escolher o dashboard da TV</b>
+        <p>Por padrão abre o Wallboard. Para o User: <span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">KIOSK_DASHBOARD_UID=downdetector-noc-1 run_kiosk.sh</span></p>
+      </li>
+    </ol>
+
+    <div class="box dica keep">
+      <b>💡 Faixa preta embaixo da tela?</b>
+      É o chrome do navegador/kiosk — o conteúdo usa a altura real do painel (~1870×886 em muitos aparelhos 1080p). O layout se adapta por medição: <b>nada é cortado</b>.
+    </div>
+  </div>
+</div>
+
+<!-- ============ 14. UNATTENDED ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">14</span> Anexo — Instalação sem perguntas (UNATTENDED)</h2>
+    <p class="lead">Para automação (Ansible, scripts) — exatamente o fluxo usado para validar este manual na VM de teste:</p>
+
+    <div class="cmd"><span class="c">root@debian:~#</span> <span class="c">sudo UNATTENDED=1 ./install.sh \</span>
+    --zabbix-url http://127.0.0.1/zabbix \
+    --zabbix-user Admin --zabbix-pass <span class="c">'SENHA_ZABBIX'</span> \
+    --grafana-url http://127.0.0.1:3000 \
+    --grafana-user admin --grafana-pass <span class="c">'SENHA_GRAFANA'</span></div>
+
+    <table class="ref">
+      <tr><th style="width:34%">Flag</th><th>Efeito</th></tr>
+      <tr><td><b>--no-seed</b></td><td>Não roda a coleta inicial (não semeia dados).</td></tr>
+      <tr><td><b>--no-cron</b></td><td>Não agenda a coleta automática.</td></tr>
+      <tr><td><b>--no-kiosk</b></td><td>Não configura a TV.</td></tr>
+      <tr><td><b>--install-dir DIR</b></td><td>Instala em outro diretório (padrão /opt/downdetector-zabbix).</td></tr>
+      <tr><td><b>-y, --yes</b></td><td>Responde “sim” a tudo que for opcional.</td></tr>
+      <tr><td><b>SKIP_ZABBIX=1 · SKIP_GRAFANA=1</b></td><td>Pula a configuração do Zabbix/Grafana (env).</td></tr>
+    </table>
+
+    <div class="box ok keep">
+      <b>✅ Sem TTY = modo não-interativo automático</b>
+      Em pipe/SSH sem terminal o instalador detecta e usa os defaults + variáveis de ambiente (ZABBIX_URL/ZABBIX_USER/ZABBIX_PASS, GRAFANA_URL/GRAFANA_USER/GRAFANA_PASS).
+    </div>
+  </div>
+</div>
+
+<!-- ============ 15. DEPLOY ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">15</span> Anexo — Atualizar depois (deploy do Windows)</h2>
+    <p class="lead">Alterou <b>config.json</b>, dashboards ou logos? O ciclo a partir do Windows (PuTTY):</p>
+
+    <div class="cmd"><span class="c">PS&gt;</span> python build_dashboard.py   <span class="d"># regenera os 2 dashboards a partir do builder</span>
+<span class="c">PS&gt;</span> &amp; <span class="c">"C:\Program Files\PuTTY\pscp.exe"</span> -pw $pw -batch .\downdetector_dashboard.json    <span class="c">$srv:/etc/grafana/provisioning/dashboards/json/</span>
+<span class="c">PS&gt;</span> &amp; <span class="c">"C:\Program Files\PuTTY\pscp.exe"</span> -pw $pw -batch .\downdetector_dashboard_tv.json <span class="c">$srv:/etc/grafana/provisioning/dashboards/json/</span>
+<span class="c">PS&gt;</span> &amp; <span class="c">"C:\Program Files\PuTTY\pscp.exe"</span> -pw $pw -batch .\config.json                    <span class="c">$srv:/opt/downdetector-zabbix/config.json</span>
+<span class="c">PS&gt;</span> &amp; <span class="c">"C:\Program Files\PuTTY\pscp.exe"</span> -pw $pw -batch .\logos\*.png                    <span class="c">$srv:/usr/share/grafana/public/img/downdetector/</span>
+<span class="c">PS&gt;</span> &amp; <span class="c">"C:\Program Files\PuTTY\plink.exe"</span> -ssh $srv -pw $pw -batch <span class="c">"curl -s -X POST -u admin:SENHA http://127.0.0.1:3000/api/admin/provisioning/dashboards/reload &amp;&amp; systemctl restart grafana-server"</span></div>
+
+    <div class="box atencao keep">
+      <b>⚠️ Adicionou serviços no config.json? São 2 ciclos</b>
+      Envie o config, espere 10–15 s (a LLD cria os itens) e deixe o cron enviar os valores — a 1ª passada após a LLD costuma falhar para as chaves novas.
+    </div>
+
+    <div class="box dica keep">
+      <b>💡 Restart do Grafana é obrigatório</b>
+      O reload sozinho pode deixar o JS do painel HTML desatualizado — sempre termine com <b>systemctl restart grafana-server</b>.
+    </div>
+  </div>
+</div>
+
+<!-- ============ 16. OPERACAO ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">16</span> Operação do dia a dia</h2>
+    <p class="lead">Comandos que resolvem 90% das necessidades no servidor:</p>
+
+    <table class="ref">
+      <tr><th style="width:44%">Tarefa</th><th>Comando</th></tr>
+      <tr><td>Testar o coletor (1 ciclo, sem enviar)</td><td><span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">/opt/downdetector-zabbix/run_collector.sh --test</span></td></tr>
+      <tr><td>Forçar uma coleta agora</td><td><span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">/opt/downdetector-zabbix/run_collector.sh</span></td></tr>
+      <tr><td>Ver o log da coleta</td><td><span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">tail -f /opt/downdetector-zabbix/logs/downdetector.log</span></td></tr>
+      <tr><td>Ver o log do cron</td><td><span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">tail -f /opt/downdetector-zabbix/logs/cron.log</span></td></tr>
+      <tr><td>Reexecutar o instalador (seguro)</td><td><span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">sudo ./install.sh</span></td></tr>
+      <tr><td>Reiniciar o Grafana</td><td><span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">systemctl restart grafana-server</span></td></tr>
+      <tr><td>Abrir o painel na TV</td><td><span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">http://SERVIDOR:3000/d/downdetector-tv-1?kiosk</span></td></tr>
+      <tr><td>Abrir o painel User</td><td><span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">http://SERVIDOR:3000/d/downdetector-noc-1?kiosk</span></td></tr>
+    </table>
+
+    <div class="box ok keep">
+      <b>✅ Tudo fica registrado</b>
+      Cada coleta guarda horário, resultado por serviço e o resumo do zabbix_sender (processed/failed). O log da instalação e os logs do coletor/cron ficam em <b>/opt/downdetector-zabbix/logs/</b>.
+    </div>
+  </div>
+</div>
+
+<!-- ============ 17. TROUBLESHOOTING ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">17</span> Solução de problemas</h2>
+    <p class="lead">Os 8 sintomas mais comuns e o caminho curto para resolver:</p>
+
+    <table class="ref">
+      <tr><th style="width:38%">Sintoma</th><th>Causa e solução</th></tr>
+      <tr><td><b>Tudo “Sem dados” de uma vez</b></td><td>Coleta falhou por completo (Cloudflare). Veja downdetector.log e rode <b>run_collector.sh --test</b>. Confira patchright, contexto <b>state/pw-profile</b> e as flags WebGL no wrapper.</td></tr>
+      <tr><td><b>Painel em branco / plugin desabilitado</b></td><td>Grafana 11+ auto-desabilita plugins no upgrade: <b>Administration → Plugins</b> → habilite gapit-htmlgraphics-panel e alexanderzobnin-zabbix-app → reinicie.</td></tr>
+      <tr><td><b>Painel HTML não renderiza</b></td><td>Falta o drop-in de sanitização (o instalador cria): <span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">systemctl cat grafana-server | grep SANITIZE</span></td></tr>
+      <tr><td><b>Serviço novo não aparece</b></td><td>Cache de métricas do plugin (cacheTTL 5m): aguarde 5 min ou reinicie o Grafana; lembre dos 2 ciclos de coleta.</td></tr>
+      <tr><td><b>Instalação falhou no meio</b></td><td>Corrija a causa apontada em logs/install.log e rode o instalador de novo — é idempotente.</td></tr>
+      <tr><td><b>Erro de sintaxe “\r” no install.sh</b></td><td>Arquivos editados no Windows com CRLF: <span class="cmd" style="display:inline-block;padding:2px 8px;margin:2px 0">dos2unix arquivo</span> (o instalador já normaliza na cópia).</td></tr>
+      <tr><td><b>TV mostra “dados desatualizados”</b></td><td>Heartbeat parado há mais de 10 min: confira o cron (/etc/cron.d/downdetector-zabbix) e o log do coletor.</td></tr>
+      <tr><td><b>Render anônimo mostra shell vazio</b></td><td>Quirk do Grafana 13 nesta instância: entre <b>logado</b> (admin) para ver os painéis; a TV usa o kiosk.</td></tr>
+    </table>
+
+    <div class="box atencao keep">
+      <b>⚠️ Cloudflare exige patchright + WebGL</b>
+      Sob Xvfb sem GPU o challenge não passa sem <b>patchright</b> e <b>--enable-unsafe-swiftshader --use-angle=swiftshader</b> (o wrapper já vem assim). Não adicione patches manuais de stealth — conflitam com o patchright.
+    </div>
+  </div>
+</div>
+
+<!-- ============ 18. REFERENCIA ============ -->
+<div class="page">
+  <div class="content">
+    <h2 class="sec"><span class="sec-num">18</span> Referência rápida</h2>
+    <p class="lead">Caminhos, identificadores e URLs do sistema instalado:</p>
+
+    <table class="ref">
+      <tr><th style="width:34%">Item</th><th>Valor</th></tr>
+      <tr><td><b>Diretório de instalação</b></td><td>/opt/downdetector-zabbix (logs/, state/, config.json, run_collector.sh)</td></tr>
+      <tr><td><b>Instalador</b></td><td>sudo ./install.sh · UNATTENDED=1 + flags (seção 14)</td></tr>
+      <tr><td><b>Log da instalação</b></td><td>logs/install.log · coletor: logs/downdetector.log · cron: logs/cron.log</td></tr>
+      <tr><td><b>Cron</b></td><td>*/5 → /etc/cron.d/downdetector-zabbix → run_collector.sh</td></tr>
+      <tr><td><b>Host Zabbix</b></td><td>Downdetector — 85 itens (42 status + 42 status.text + heartbeat)</td></tr>
+      <tr><td><b>Template Zabbix</b></td><td>Downdetector Monitor (LLD)</td></tr>
+      <tr><td><b>Datasource Grafana</b></td><td>Zabbix · UID PA67C5EADE9207728 · cacheTTL 5m</td></tr>
+      <tr><td><b>Dashboards</b></td><td>downdetector-tv-1 (Wallboard/TV) · downdetector-noc-1 (User)</td></tr>
+      <tr><td><b>Ícones</b></td><td>/usr/share/grafana/public/img/downdetector/ (faltou logo → letra)</td></tr>
+      <tr><td><b>Kiosk</b></td><td>run_kiosk.sh (Wallboard) · override KIOSK_DASHBOARD_UID</td></tr>
+      <tr><td><b>Config de serviços</b></td><td>/opt/downdetector-zabbix/config.json (42 serviços, 6 categorias)</td></tr>
+    </table>
+
+    <div class="sig">
+      <img src="img/logo-jr-horizontal.png" alt="JR.TEC.BR">
+      <span>Uma solução <b>JR.TEC.BR</b> — Tecnologia que conecta resultados.</span>
+    </div>
+
+    <p style="color:var(--muted);font-size:10.5px;margin-top:18px;border-top:1px solid #dce6e4;padding-top:8px">
+      Downdetector Monitor · Manual de Instalação — capturas feitas na VM de teste (Debian 13 · Zabbix 7.4.15 · Grafana 13.2.3) em setembro/2026. Prints de terminal reproduzem fielmente a saída da instalação validada (13/13 etapas, 10/10 checks). Para regenerar o PDF: docs\build_pdf.py.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
