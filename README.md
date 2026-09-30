@@ -188,8 +188,7 @@ Validação: mesma sequência da seção [Validar a instalação](#validar-a-ins
 ### Manual ilustrado
 
 O repositório inclui um manual completo com prints de cada etapa (telas do Grafana/Zabbix e
-o terminal da instalação validada): [`docs/MANUAL_INSTALACAO.pdf`](docs/MANUAL_INSTALACAO.pdf)
-— fonte editável em [`docs/manual-instalacao.html`](docs/manual-instalacao.html).
+o terminal da instalação validada): [`MANUAL_INSTALACAO.pdf`](MANUAL_INSTALACAO.pdf) na raiz.
 
 ---
 
