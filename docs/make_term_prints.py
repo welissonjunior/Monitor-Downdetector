@@ -237,9 +237,9 @@ block("te_06_coletor", "Coletor em operação — log real (/opt/downdetector-za
 ], 300)
 
 # ── T7: deploy a partir do Windows (PowerShell) ─────────────────────────────
-PS = '<span class="p">PS C:\\PROJETOS\\ZABBIX-DOWNDETECTOR-V2&gt;</span> '
+PS = '<span class="p">PS C:\PROJETOS\SEU_PROJETO&gt;</span> '
 block("te_07_deploy_windows", "Windows PowerShell — deploy do repositório para o servidor", [
-    PS + '<span class="c">$srv = "root@192.168.0.92"; $pw = "••••••"</span>',
+    PS + '<span class="c">$srv = "root@IP_DA_VM"; $pw = "••••••"</span>',
     "",
     PS + '<span class="c">&amp; "C:\\Program Files\\PuTTY\\pscp.exe" -pw $pw -batch .\\downdetector_dashboard.json $srv:/etc/grafana/provisioning/dashboards/json/</span>',
     "downdetector_dashboard.json     | 128 kB | 100%",

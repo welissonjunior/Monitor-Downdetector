@@ -28,13 +28,13 @@ python docs\build_pdf.py
 
 ## Atualizar os prints dos dashboards
 
-Na VM de teste (192.168.0.92), com o pipeline no ar:
+Na VM de teste (IP_DA_VM), com o pipeline no ar:
 
 ```powershell
-& "C:\Program Files\PuTTY\pscp.exe" -pw <senha> -batch docs\shot_dashboards.py root@192.168.0.92:/tmp/
-& "C:\Program Files\PuTTY\plink.exe" -ssh root@192.168.0.92 -pw <senha> -batch "/opt/downdetector-zabbix/venv/bin/python /tmp/shot_dashboards.py"
-& "C:\Program Files\PuTTY\pscp.exe" -pw <senha> -batch root@192.168.0.92:/tmp/user_kiosk.png docs\img\04_dashboard_user.png
-& "C:\Program Files\PuTTY\pscp.exe" -pw <senha> -batch root@192.168.0.92:/tmp/wallboard_kiosk.png docs\img\03_wallboard_tv.png
+& "C:\Program Files\PuTTY\pscp.exe" -pw <senha> -batch docs\shot_dashboards.py root@IP_DA_VM:/tmp/
+& "C:\Program Files\PuTTY\plink.exe" -ssh root@IP_DA_VM -pw <senha> -batch "/opt/downdetector-zabbix/venv/bin/python /tmp/shot_dashboards.py"
+& "C:\Program Files\PuTTY\pscp.exe" -pw <senha> -batch root@IP_DA_VM:/tmp/user_kiosk.png docs\img\04_dashboard_user.png
+& "C:\Program Files\PuTTY\pscp.exe" -pw <senha> -batch root@IP_DA_VM:/tmp/wallboard_kiosk.png docs\img\03_wallboard_tv.png
 python docs\build_pdf.py
 ```
 
