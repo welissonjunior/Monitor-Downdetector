@@ -65,8 +65,8 @@ Compatibilidade testada:
 Clone o repositório no servidor e rode o instalador:
 
 ```bash
-git clone https://github.com/welissonjunior/ZABBIX-DOWNDETECTOR-V02.git
-cd ZABBIX-DOWNDETECTOR-V02
+git clone https://github.com/welissonjunior/Monitor-Downdetector.git
+cd Monitor-Downdetector
 sudo bash install.sh
 ```
 
